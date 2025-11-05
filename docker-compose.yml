@@ -1,0 +1,10 @@
+services:
+  backend:
+    image: misinfodetector/backend:latest
+    build: ./misinfodetector-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - "database:/var/lib/backend/"
+volumes:
+  database:
