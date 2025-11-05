@@ -1,0 +1,6 @@
+[submodule "misinfodetector-backend"]
+	path = misinfodetector-backend
+	url = git@github.com:jedsaxon/misinfodetector-backend.git
+[submodule "misinfodetector-frontend"]
+	path = misinfodetector-frontend
+	url = git@github.com:jedsaxon/misinfodetector-frontend.git
