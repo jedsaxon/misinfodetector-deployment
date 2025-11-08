@@ -1,10 +1,48 @@
 services:
+  rabbitmq:
+    container_name: "misinfodetector-rabbitmq"
+    hostname: "misinfodetector-rabbitmq"
+    image: rabbitmq:management
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    volumes:
+      - rabbitmq-lib:/var/lib/rabbitmq
+      - rabbitmq-log:/var/log/rabbitmq
+    networks:
+      - misinfodetector
   backend:
+    container_name: "misinfodetector-go"
     image: misinfodetector/backend:latest
     build: ./misinfodetector-backend
     ports:
       - "5000:5000"
     volumes:
       - "database:/var/lib/backend/"
+    env_file: .env.backend
+    restart: always
+    depends_on:
+      - rabbitmq
+    networks:
+      - misinfodetector
+  frontend:
+    container_name: "misinfodetector-react"
+    image: misinfodetector/frontend:latest
+    build: ./misinfodetector-frontend
+    restart: always
+    ports: 
+      - "3000:3000"
+    env_file: .env.frontend
+    networks:
+      - misinfodetector
 volumes:
   database:
+  rabbitmq-lib:
+  rabbitmq-log:
+networks:
+  misinfodetector:
+    driver: bridge
