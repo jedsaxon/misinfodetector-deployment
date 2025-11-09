@@ -4,3 +4,6 @@
 [submodule "misinfodetector-frontend"]
 	path = misinfodetector-frontend
 	url = git@github.com:jedsaxon/misinfodetector-frontend.git
+[submodule "pymisinfo"]
+	path = pymisinfo
+	url = https://github.com/PAR4LLX/pymisinfo.git
